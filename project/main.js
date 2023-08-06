@@ -7,6 +7,8 @@ var displayText = require('display.text');
 var structureTower = require('structure.tower');
 
 class SubCreep {
+    // TODO: roll all the creep configs into a class so we can just do
+    // spawnIfAble(harvesterCreep);
     constructor(creepType, creepLimit, labelPos, creepBody) {
         this.creepType = creepType;
         this.creepLimit = creepLimit;
@@ -20,36 +22,41 @@ class SubCreep {
 }
 
 module.exports.loop = function () {
+    const ROOM_NAME = 'W8N3';    
+    const MY_GAME_SPAWN = Game.spawns["Alpha1"];
 
+    // Configurations to tweak as the game progresses
     const MAX_HARVESTERS = 0;
     const MAX_UPGRADERS = 3;
     const MAX_BUILDERS = 1;
-    const MAX_BIG_HARVESTERS = 3;
+    const MAX_BIG_HARVESTERS = 5;
     const MAX_CARRIERS = 1;
     const MAX_REPAIRERS = 1;
-    const HARVESTER_LABEL_POS = new RoomPosition(40, 29, 'W8N3');
-    const UPGRADER_LABEL_POS = new RoomPosition(40, 30, 'W8N3');
-    const BUILDER_LABEL_POS = new RoomPosition(40, 31, 'W8N3');
-    const BIG_HARVESTER_LABEL_POS = new RoomPosition(40, 32, 'W8N3');
-    const CARRIER_LABEL_POS = new RoomPosition(40, 33, 'W8N3');
-    const REPAIRER_LABEL_POS = new RoomPosition(40, 34, 'W8N3');
+
+    // Creep configs - cosmetic
+    const HARVESTER_LABEL_POS = new RoomPosition(40, 29, ROOM_NAME);
+    const UPGRADER_LABEL_POS = new RoomPosition(40, 30, ROOM_NAME);
+    const BUILDER_LABEL_POS = new RoomPosition(40, 31, ROOM_NAME);
+    const BIG_HARVESTER_LABEL_POS = new RoomPosition(40, 32, ROOM_NAME);
+    const CARRIER_LABEL_POS = new RoomPosition(40, 33, ROOM_NAME);
+    const REPAIRER_LABEL_POS = new RoomPosition(40, 34, ROOM_NAME);
+
+    // Creep body types
     const SMALL_CREEP_BODY = [MOVE, CARRY, WORK];
     const HARVESTER_BODY = [MOVE, WORK];
     const BIG_CREEP_BODY = [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE];
-    
-    var gameSpawn = Game.spawns["Alpha1"];
 
     function spawnAnotherCreepIfAble(creepType, creepLimit, labelPos, creepBody) {
         var creepTypePlural = `${creepType}s`;
-        var myCreeps = gameSpawn.room.find(FIND_MY_CREEPS);
+        var myCreeps = MY_GAME_SPAWN.room.find(FIND_MY_CREEPS);
         var creepList = myCreeps.filter(creep => creep.memory.role === creepType);
-        displayText.display(`${creepTypePlural}: ${creepList.length} of ${creepLimit}`, labelPos, gameSpawn);
+        displayText.display(`${creepTypePlural}: ${creepList.length} of ${creepLimit}`, labelPos, MY_GAME_SPAWN);
             
-        if(!gameSpawn.spawning && gameSpawn.room.energyAvailable >= bodyCost(creepBody)) {
+        if(!MY_GAME_SPAWN.spawning && MY_GAME_SPAWN.room.energyAvailable >= bodyCost(creepBody)) {
             if(creepList.length < creepLimit) {
                 var newName = `${creepType}${Game.time}`;
-                displayText.log(`Spawning new ${creepType}: ${newName}`, new RoomPosition(14, 27, 'W8N3'), gameSpawn);
-                gameSpawn.spawnCreep(creepBody, newName, {memory: {role: creepType}});
+                displayText.log(`Spawning new ${creepType}: ${newName}`, new RoomPosition(14, 27, 'W8N3'), MY_GAME_SPAWN);
+                MY_GAME_SPAWN.spawnCreep(creepBody, newName, {memory: {role: creepType}});
             }
         }
     }
@@ -64,7 +71,7 @@ module.exports.loop = function () {
     for(var name in Memory.creeps) {
         if(!Game.creeps[name]) {
             delete Memory.creeps[name];
-            displayText.log(`Clearing non-existing creep memory: ${name}`, new RoomPosition(14, 28, 'W8N3'), gameSpawn);
+            displayText.log(`Clearing non-existing creep memory: ${name}`, new RoomPosition(14, 28, 'W8N3'), MY_GAME_SPAWN);
         }
     }
 
@@ -105,8 +112,8 @@ module.exports.loop = function () {
         }
     }
     
-    var status = `${gameSpawn.name}: ${gameSpawn.room.energyAvailable} / ${gameSpawn.room.energyCapacityAvailable}`;
-    displayText.display(status, new RoomPosition(gameSpawn.pos.x, gameSpawn.pos.y + 1, gameSpawn.room.name), gameSpawn);
+    var status = `${MY_GAME_SPAWN.name}: ${MY_GAME_SPAWN.room.energyAvailable} / ${MY_GAME_SPAWN.room.energyCapacityAvailable}`;
+    displayText.display(status, new RoomPosition(MY_GAME_SPAWN.pos.x, MY_GAME_SPAWN.pos.y + 1, MY_GAME_SPAWN.room.name), MY_GAME_SPAWN);
 }
 
 /*
