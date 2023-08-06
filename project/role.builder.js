@@ -33,23 +33,22 @@ var roleBuilder = {
             }
 	    }
 	    else {
-            // TODO: change .find to .findClosestByPath
-            // creep.pos.findClosestByPath(FIND_STRUCTURES, {filter: ...});
-            var containers = creep.room.find(FIND_STRUCTURES,
+            // Withdraw some energy from a container if there is one that has energy in it, otherwise harvest energy
+            var closestContainer = creep.pos.findClosestByPath(FIND_STRUCTURES,
                 {
                     filter: (structure) => structure.structureType === STRUCTURE_CONTAINER && structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0
                 });
             
-            if(containers.length > 0) {
-                creep.say("Withdrawing");
-                if(creep.withdraw(containers[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-                    creep.say("Too far");
-                    creep.moveTo(containers[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+            if(closestContainer) {
+                if(creep.withdraw(closestContainer, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+                    creep.moveTo(closestContainer, {visualizePathStyle: {stroke: '#ffaa00'}});
+                    creep.say("Withdrawing");
                 }
             } else {
                 var sources = creep.room.find(FIND_SOURCES);
                 if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+                    creep.say('🔄 harvest');
                 }
             }
 	    }

@@ -33,7 +33,7 @@ module.exports.loop = function () {
     const MAX_CARRIERS = 1;
     const MAX_REPAIRERS = 1;
 
-    // Creep configs - cosmetic
+    // Cosmetic configs - creep count labels
     const HARVESTER_LABEL_POS = new RoomPosition(40, 29, ROOM_NAME);
     const UPGRADER_LABEL_POS = new RoomPosition(40, 30, ROOM_NAME);
     const BUILDER_LABEL_POS = new RoomPosition(40, 31, ROOM_NAME);
