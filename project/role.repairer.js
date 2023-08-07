@@ -14,7 +14,7 @@ var roleRepairer = {
 
 	    if(creep.memory.repairing) {
             var closestDamagedContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter: (structure) => structure.structureType === STRUCTURE_CONTAINER && structure.hits < structure.hitsMax
+                filter: (structure) => (structure.structureType === STRUCTURE_CONTAINER || structure.structureType === STRUCTURE_RAMPART) && structure.hits < structure.hitsMax
             });
             if(closestDamagedContainer) {
                 if(creep.repair(closestDamagedContainer) === ERR_NOT_IN_RANGE) {
