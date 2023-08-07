@@ -1,6 +1,6 @@
 var actions = {
     storeEnergy: function(creep) {
-        var targets = creep.room.find(FIND_STRUCTURES, {
+        var target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: (structure) => {
                 return (structure.structureType === STRUCTURE_EXTENSION ||
                         structure.structureType === STRUCTURE_SPAWN) && 
@@ -8,9 +8,9 @@ var actions = {
             }
         });
         // TODO: priority ordering
-        if(targets.length > 0) {
-            if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+        if(target) {
+            if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
             }
         } else {
             var closestTower = creep.room.find(FIND_STRUCTURES, {
