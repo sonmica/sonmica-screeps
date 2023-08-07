@@ -34,19 +34,8 @@ var roleBuilder = {
                 creep.drop(RESOURCE_ENERGY);
             }
 	    }
-	    else {
-            // Withdraw some energy from a container if there is one that has energy in it, otherwise harvest energy
-            var closestContainer = creep.pos.findClosestByPath(FIND_STRUCTURES,
-                {
-                    filter: (structure) => structure.structureType === STRUCTURE_CONTAINER && structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0
-                });
-            
-            if(closestContainer) {
-                if(creep.withdraw(closestContainer, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-                    creep.moveTo(closestContainer, {visualizePathStyle: {stroke: '#ffaa00'}});
-                    creep.say("Withdrawing");
-                }
-            } else {
+	    else { 
+            if(!actions.withdrawEnergy(creep)) {
                 creep.say('🔄 harvest');
                 actions.harvestEnergy(creep);
             }

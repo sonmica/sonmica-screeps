@@ -27,9 +27,9 @@ module.exports.loop = function () {
 
     // Configurations to tweak as the game progresses
     const MAX_HARVESTERS = 0;
-    const MAX_UPGRADERS = 3;
+    const MAX_UPGRADERS = 4;
     const MAX_BUILDERS = 1;
-    const MAX_BIG_HARVESTERS = 7;
+    const MAX_BIG_HARVESTERS = 8;
     const MAX_CARRIERS = 1;
     const MAX_REPAIRERS = 1;
 
