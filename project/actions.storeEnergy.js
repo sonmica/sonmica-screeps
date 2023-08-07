@@ -1,5 +1,5 @@
-var actions = {
-    storeEnergy: function(creep) {
+var storeEnergy = {
+    do: function(creep) {
         var target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: (structure) => {
                 return (structure.structureType === STRUCTURE_EXTENSION ||
@@ -40,4 +40,4 @@ var actions = {
     }
 }
 
-module.exports = actions;
+module.exports = storeEnergy;

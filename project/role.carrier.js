@@ -1,4 +1,4 @@
-var actions = require('actions.storeEnergy');
+var actions = require('actions');
 
 var roleCarrier = {
 
