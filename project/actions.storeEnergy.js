@@ -13,7 +13,7 @@ var storeEnergy = {
                 creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
             }
         } else {
-            var closestTower = creep.room.find(FIND_STRUCTURES, {
+            var closestTower = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return structure.structureType === STRUCTURE_TOWER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
                 }
@@ -23,7 +23,7 @@ var storeEnergy = {
                     creep.moveTo(closestTower, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             } else {
-                var closestContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                var closestContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                     filter: (structure) => structure.structureType === STRUCTURE_CONTAINER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
                 })
                 if(closestContainer) {
