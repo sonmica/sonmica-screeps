@@ -29,7 +29,7 @@ module.exports.loop = function () {
     const MAX_HARVESTERS = 0;
     const MAX_UPGRADERS = 4;
     const MAX_BUILDERS = 1;
-    const MAX_BIG_HARVESTERS = 8;
+    const MAX_BIG_HARVESTERS = 10;
     const MAX_CARRIERS = 1;
     const MAX_REPAIRERS = 1;
 
@@ -125,6 +125,6 @@ module.exports.loop = function () {
  *
  *
  * -- TODO --
- * Consolidate some of the duplicated code
+ * Store configuration in memory so that a config change does not require app change
  *
  */
