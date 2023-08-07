@@ -29,7 +29,7 @@ module.exports.loop = function () {
     const MAX_HARVESTERS = 0;
     const MAX_UPGRADERS = 3;
     const MAX_BUILDERS = 1;
-    const MAX_BIG_HARVESTERS = 5;
+    const MAX_BIG_HARVESTERS = 7;
     const MAX_CARRIERS = 1;
     const MAX_REPAIRERS = 1;
 
