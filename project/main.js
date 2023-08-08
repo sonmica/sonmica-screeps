@@ -27,11 +27,11 @@ module.exports.loop = function () {
 
     // Configurations to tweak as the game progresses
     const MAX_HARVESTERS = 0;
-    const MAX_UPGRADERS = 4;
+    const MAX_UPGRADERS = 5;
     const MAX_BUILDERS = 1;
-    const MAX_BIG_HARVESTERS = 10;
+    const MAX_BIG_HARVESTERS = 12;
     const MAX_CARRIERS = 1;
-    const MAX_REPAIRERS = 1;
+    const MAX_REPAIRERS = 2;
 
     // Cosmetic configs - creep count labels
     const HARVESTER_LABEL_POS = new RoomPosition(40, 29, ROOM_NAME);
