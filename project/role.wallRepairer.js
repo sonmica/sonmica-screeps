@@ -15,6 +15,7 @@ var roleWallRepairer = {
 	    }
 
 	    if(creep.memory.repairing) {
+            // TODO: Repair the most damaged thing
             var closestDamagedRampart = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                 filter: (structure) => structure.structureType === STRUCTURE_RAMPART && structure.hits < structure.hitsMax
             });
