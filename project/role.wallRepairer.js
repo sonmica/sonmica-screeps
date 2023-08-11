@@ -1,6 +1,6 @@
 var actions = require('actions');
 
-var roleRepairer = {
+var roleWallRepairer = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
@@ -15,20 +15,20 @@ var roleRepairer = {
 	    }
 
 	    if(creep.memory.repairing) {
-            var closestDamagedContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter: (structure) => structure.structureType === STRUCTURE_CONTAINER && structure.hits < structure.hitsMax
+            var closestDamagedRampart = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                filter: (structure) => structure.structureType === STRUCTURE_RAMPART && structure.hits < structure.hitsMax
             });
-            if(closestDamagedContainer) {
-                if(creep.repair(closestDamagedContainer) === ERR_NOT_IN_RANGE) {
-                    creep.moveTo(closestDamagedContainer, {visualizePathStyle: {stroke: '#ffffff'}});
+            if(closestDamagedRampart) {
+                if(creep.repair(closestDamagedRampart) === ERR_NOT_IN_RANGE) {
+                    creep.moveTo(closestDamagedRampart, {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             } else {
-                var closestDamagedRoad = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                    filter: (structure) => structure.structureType === STRUCTURE_ROAD && structure.hits < structure.hitsMax
+                var closestDamagedWall = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                    filter: (structure) => structure.structureType === STRUCTURE_WALL && structure.hits < structure.hitsMax
                 });
-                if(closestDamagedRoad) {
-                    if(creep.repair(closestDamagedRoad) === ERR_NOT_IN_RANGE) {
-                        creep.moveTo(closestDamagedRoad, {visualizePathStyle: {stroke: '#ffffff'}});
+                if(closestDamagedWall) {
+                    if(creep.repair(closestDamagedWall) === ERR_NOT_IN_RANGE) {
+                        creep.moveTo(closestDamagedWall, {visualizePathStyle: {stroke: '#ffffff'}});
                     }
                 } else {
                     var closestDamagedStructure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
@@ -55,4 +55,4 @@ var roleRepairer = {
 	}
 };
 
-module.exports = roleRepairer;
+module.exports = roleWallRepairer;

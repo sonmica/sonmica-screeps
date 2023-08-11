@@ -3,6 +3,7 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleCarrier = require('role.carrier');
 var roleRepairer = require('role.repairer');
+var roleWallRepairer = require('role.wallRepairer');
 var displayText = require('display.text');
 var structureTower = require('structure.tower');
 
@@ -32,6 +33,7 @@ module.exports.loop = function () {
     const MAX_BIG_HARVESTERS = 12;
     const MAX_CARRIERS = 1;
     const MAX_REPAIRERS = 2;
+    const MAX_WALL_REPAIRERS = 1;
 
     // Cosmetic configs - creep count labels
     const HARVESTER_LABEL_POS = new RoomPosition(40, 29, ROOM_NAME);
@@ -40,6 +42,7 @@ module.exports.loop = function () {
     const BIG_HARVESTER_LABEL_POS = new RoomPosition(40, 32, ROOM_NAME);
     const CARRIER_LABEL_POS = new RoomPosition(40, 33, ROOM_NAME);
     const REPAIRER_LABEL_POS = new RoomPosition(40, 34, ROOM_NAME);
+    const WALL_REPAIRER_LABEL_POS = new RoomPosition(40, 35, ROOM_NAME);
 
     // Creep body types
     const SMALL_CREEP_BODY = [MOVE, CARRY, WORK];
@@ -80,6 +83,7 @@ module.exports.loop = function () {
     spawnAnotherCreepIfAble("builder", MAX_BUILDERS, BUILDER_LABEL_POS, SMALL_CREEP_BODY);
     spawnAnotherCreepIfAble("carrier", MAX_CARRIERS, CARRIER_LABEL_POS, SMALL_CREEP_BODY);
     spawnAnotherCreepIfAble("repairer", MAX_REPAIRERS, REPAIRER_LABEL_POS, SMALL_CREEP_BODY);
+    spawnAnotherCreepIfAble("wallRepairer", MAX_WALL_REPAIRERS, WALL_REPAIRER_LABEL_POS, BIG_CREEP_BODY);
     spawnAnotherCreepIfAble("big_harvester", MAX_BIG_HARVESTERS, BIG_HARVESTER_LABEL_POS, BIG_CREEP_BODY);
 
     for(var id in Game.structures) {
@@ -103,6 +107,9 @@ module.exports.loop = function () {
                 break;
             case 'repairer':
                 roleRepairer.run(creep);
+                break;
+            case 'wallRepairer':
+                roleWallRepairer.run(creep);
                 break;
             case 'harvester':
             case 'big_harvester':
