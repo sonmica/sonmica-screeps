@@ -36,13 +36,13 @@ module.exports.loop = function () {
     const MAX_WALL_REPAIRERS = 1;
 
     // Cosmetic configs - creep count labels
-    const HARVESTER_LABEL_POS = new RoomPosition(40, 29, ROOM_NAME);
-    const UPGRADER_LABEL_POS = new RoomPosition(40, 30, ROOM_NAME);
-    const BUILDER_LABEL_POS = new RoomPosition(40, 31, ROOM_NAME);
-    const BIG_HARVESTER_LABEL_POS = new RoomPosition(40, 32, ROOM_NAME);
-    const CARRIER_LABEL_POS = new RoomPosition(40, 33, ROOM_NAME);
-    const REPAIRER_LABEL_POS = new RoomPosition(40, 34, ROOM_NAME);
-    const WALL_REPAIRER_LABEL_POS = new RoomPosition(40, 35, ROOM_NAME);
+    const HARVESTER_LABEL_POS = new RoomPosition(41, 29, ROOM_NAME);
+    const UPGRADER_LABEL_POS = new RoomPosition(41, 30, ROOM_NAME);
+    const BUILDER_LABEL_POS = new RoomPosition(41, 31, ROOM_NAME);
+    const BIG_HARVESTER_LABEL_POS = new RoomPosition(41, 32, ROOM_NAME);
+    const CARRIER_LABEL_POS = new RoomPosition(41, 33, ROOM_NAME);
+    const REPAIRER_LABEL_POS = new RoomPosition(41, 34, ROOM_NAME);
+    const WALL_REPAIRER_LABEL_POS = new RoomPosition(41, 35, ROOM_NAME);
 
     // Creep body types
     const SMALL_CREEP_BODY = [MOVE, CARRY, WORK];
