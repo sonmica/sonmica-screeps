@@ -5,7 +5,8 @@ var withdrawEnergy = {
     do: function(creep) {
         var closestContainer = creep.pos.findClosestByPath(FIND_STRUCTURES,
             {
-                filter: (structure) => structure.structureType === STRUCTURE_CONTAINER && structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0
+                filter: (structure) => [STRUCTURE_CONTAINER, STRUCTURE_STORAGE].includes(structure.structureType)
+                    && structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0
             });
         
         if(closestContainer) {
