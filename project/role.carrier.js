@@ -12,19 +12,29 @@ var roleCarrier = {
          * - RESOURCE_ENERGY on the ground
          * - No RESOURCE_ENERGY on the ground
          */
-	    if(creep.store.getFreeCapacity() > 0) {
-            creep.say("Collecting");
-            var sources = creep.room.find(FIND_DROPPED_RESOURCES);
-            if(sources.length > 0) {    
-                if(creep.pickup(sources[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
-                } else {
-                    creep.say("Storing");
-                    actions.storeEnergy(creep);
-                }
-            }
+
+        // State Management
+        if(creep.memory.collecting && creep.store.getFreeCapacity() === 0) {
+            creep.memory.collecting = false;
+            creep.say('Storing');
         }
-        else {
+        if(!creep.memory.collecting && creep.store[RESOURCE_ENERGY] === 0) {
+            creep.memory.collecting = true;
+            creep.say('Collecting');
+        }
+
+        // Actions
+        if(creep.memory.collecting) {
+            var closestSource = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
+            if(closestSource) {
+                if(creep.pickup(closestSource) === ERR_NOT_IN_RANGE) {
+                    creep.moveTo(closestSource, {visualizePath: {stroke: '#ffaa00'}});
+                }
+            } else {
+                creep.say('🔄Storing');
+                creep.memory.collecting = false;
+            }
+        } else {
             actions.storeEnergy(creep);
         }
 	}
