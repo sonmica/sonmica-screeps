@@ -100,11 +100,11 @@ module.exports.loop = function () {
     const idsOfStructuresToDismantle = [
         "86a9cf8231db459",
         "9e6fcf827290292",
+        "04805bb6629d5e9",
         "827f5cb09e684b8",
         "69575b7f4fb52d2",
         "06425b7974dda05",
         "d6825b7d8534770",
-        "04805bb6629d5e9",
         "7fa25c7e60a1248",
     ];
     const structuresToDismantle = idsOfStructuresToDismantle.map(id => Game.getObjectById(id)).filter(structure => !!structure);
@@ -118,7 +118,10 @@ module.exports.loop = function () {
             case 'dismantler':
                 if(structuresToDismantle.length > 0) {
                     roleDismantler.run(creep, structuresToDismantle[0]);
+                } else {
+                    creep.say("DSM idle");
                 }
+                break;
             case 'builder':
                 roleBuilder.run(creep);
                 break;

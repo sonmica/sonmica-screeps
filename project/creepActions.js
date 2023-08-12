@@ -2,7 +2,7 @@ var storeEnergy = require('actions.storeEnergy');
 var harvestEnergy = require('actions.harvestEnergy');
 var withdrawEnergy = require('actions.withdrawEnergy');
 
-var actions = {
+var creepActions = {
     storeEnergy: function(creep) {
         storeEnergy.do(creep);
     },
@@ -14,4 +14,4 @@ var actions = {
     }
 }
 
-module.exports = actions;
+module.exports = creepActions;
