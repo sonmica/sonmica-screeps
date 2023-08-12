@@ -3,7 +3,11 @@ var actions = require('actions');
 var roleRepairer = {
 
     /** @param {Creep} creep **/
-    run: function(creep) {
+    /** @param {string[]} structureBlacklistIds */
+    run: function(creep, structureBlacklistIds) {
+        if(!structureBlacklistIds) {
+            structureBlacklistIds = [];
+        }
 
 	    if(creep.memory.repairing && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.repairing = false;
@@ -16,7 +20,10 @@ var roleRepairer = {
 
 	    if(creep.memory.repairing) {
             var closestDamagedContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter: (structure) => structure.structureType === STRUCTURE_CONTAINER && structure.hits < structure.hitsMax
+                filter: (structure) =>
+                    !structureBlacklistIds.includes(structure.id)
+                    && structure.structureType === STRUCTURE_CONTAINER
+                    && structure.hits < structure.hitsMax
             });
             if(closestDamagedContainer) {
                 if(creep.repair(closestDamagedContainer) === ERR_NOT_IN_RANGE) {
@@ -24,7 +31,10 @@ var roleRepairer = {
                 }
             } else {
                 var closestDamagedRoad = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                    filter: (structure) => structure.structureType === STRUCTURE_ROAD && structure.hits < structure.hitsMax
+                    filter: (structure) => 
+                        !structureBlacklistIds.includes(structure.id)
+                        && structure.structureType === STRUCTURE_ROAD
+                        && structure.hits < structure.hitsMax
                 });
                 if(closestDamagedRoad) {
                     if(creep.repair(closestDamagedRoad) === ERR_NOT_IN_RANGE) {
@@ -32,7 +42,9 @@ var roleRepairer = {
                     }
                 } else {
                     var closestDamagedStructure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                        filter: (structure) => structure.hits < structure.hitsMax
+                        filter: (structure) => 
+                            !structureBlacklistIds.includes(structure.id)
+                            && structure.hits < structure.hitsMax
                     });
                     if(closestDamagedStructure) {
                         if(creep.repair(closestDamagedStructure) === ERR_NOT_IN_RANGE) {
