@@ -4,6 +4,7 @@ var roleBuilder = require('role.builder');
 var roleCarrier = require('role.carrier');
 var roleRepairer = require('role.repairer');
 var roleWallRepairer = require('role.wallRepairer');
+var roleDismantler = require('role.dismantler');
 var displayText = require('display.text');
 var structureTower = require('structure.tower');
 
@@ -30,10 +31,11 @@ module.exports.loop = function () {
     const MAX_HARVESTERS = 0;
     const MAX_UPGRADERS = 5;
     const MAX_BUILDERS = 2;
-    const MAX_BIG_HARVESTERS = 10;
+    const MAX_BIG_HARVESTERS = 8;
     const MAX_CARRIERS = 4;
     const MAX_REPAIRERS = 2;
-    const MAX_WALL_REPAIRERS = 1;
+    const MAX_WALL_REPAIRERS = 2;
+    const MAX_DISMANTLERS = 1;
 
     // Cosmetic configs - creep count labels
     const HARVESTER_LABEL_POS = new RoomPosition(40, 29, ROOM_NAME);
@@ -43,6 +45,7 @@ module.exports.loop = function () {
     const CARRIER_LABEL_POS = new RoomPosition(40, 33, ROOM_NAME);
     const REPAIRER_LABEL_POS = new RoomPosition(40, 34, ROOM_NAME);
     const WALL_REPAIRER_LABEL_POS = new RoomPosition(40, 35, ROOM_NAME);
+    const DISMANTLER_LABEL_POS = new RoomPosition(40, 36, ROOM_NAME);
 
     // Creep body types
     const SMALL_CREEP_BODY = [MOVE, CARRY, WORK];
@@ -85,6 +88,7 @@ module.exports.loop = function () {
     spawnAnotherCreepIfAble("repairer", MAX_REPAIRERS, REPAIRER_LABEL_POS, SMALL_CREEP_BODY);
     spawnAnotherCreepIfAble("wallRepairer", MAX_WALL_REPAIRERS, WALL_REPAIRER_LABEL_POS, BIG_CREEP_BODY);
     spawnAnotherCreepIfAble("big_harvester", MAX_BIG_HARVESTERS, BIG_HARVESTER_LABEL_POS, BIG_CREEP_BODY);
+    spawnAnotherCreepIfAble("dismantler", MAX_DISMANTLERS, DISMANTLER_LABEL_POS, BIG_CREEP_BODY);
 
     for(var id in Game.structures) {
         var tower = Game.structures[id];
@@ -92,6 +96,18 @@ module.exports.loop = function () {
             structureTower.run(tower);
         }
     }
+    
+    const idsOfStructuresToDismantle = [
+        "86a9cf8231db459",
+        "827f5cb09e684b8",
+        "69575b7f4fb52d2",
+        "06425b7974dda05",
+        "d6825b7d8534770",
+        "04805bb6629d5e9",
+        "7fa25c7e60a1248",
+        "9e6fcf827290292"
+    ];
+    const structuresToDismantle = idsOfStructuresToDismantle.map(id => Game.getObjectById(id)).filter(structure => !!structure);
 
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
@@ -99,6 +115,10 @@ module.exports.loop = function () {
             case 'upgrader':
                 roleUpgrader.run(creep);
                 break;
+            case 'dismantler':
+                if(structuresToDismantle.length > 0) {
+                    roleDismantler.run(creep, structuresToDismantle[0]);
+                }
             case 'builder':
                 roleBuilder.run(creep);
                 break;

@@ -34,7 +34,7 @@ var roleBuilder = {
                 creep.drop(RESOURCE_ENERGY);
             }
 	    }
-	    else { 
+	    else {
             if(!actions.withdrawEnergy(creep)) {
                 creep.say('🔄 harvest');
                 actions.harvestEnergy(creep);
