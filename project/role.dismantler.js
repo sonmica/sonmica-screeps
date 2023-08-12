@@ -21,6 +21,7 @@ var roleDismantler = {
 	    }
 	    else {
             actions.storeEnergy(creep);
+            creep.say('STORING');
 	    }
 	}
 };
