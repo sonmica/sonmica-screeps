@@ -1,4 +1,5 @@
 var actions = require('creepActions');
+var roomActions = require('roomActions');
 
 var roleRepairer = {
 
@@ -19,36 +20,39 @@ var roleRepairer = {
 	    }
 
 	    if(creep.memory.repairing) {
-            var closestDamagedContainer = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            var damagedContainers = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) =>
                     !structureBlacklistIds.includes(structure.id)
                     && structure.structureType === STRUCTURE_CONTAINER
                     && structure.hits < structure.hitsMax
             });
-            if(closestDamagedContainer) {
-                if(creep.repair(closestDamagedContainer) === ERR_NOT_IN_RANGE) {
-                    creep.moveTo(closestDamagedContainer, {visualizePathStyle: {stroke: '#ffffff'}});
+            var sortedDamagedContainers = roomActions.sortStructuresByHealth(damagedContainers);
+            if(sortedDamagedContainers && sortedDamagedContainers.length) {
+                if(creep.repair(sortedDamagedContainers[0]) === ERR_NOT_IN_RANGE) {
+                    creep.moveTo(sortedDamagedContainers[0], {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             } else {
-                var closestDamagedRoad = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+                var damagedRoads = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => 
                         !structureBlacklistIds.includes(structure.id)
                         && structure.structureType === STRUCTURE_ROAD
                         && structure.hits < structure.hitsMax
                 });
-                if(closestDamagedRoad) {
-                    if(creep.repair(closestDamagedRoad) === ERR_NOT_IN_RANGE) {
-                        creep.moveTo(closestDamagedRoad, {visualizePathStyle: {stroke: '#ffffff'}});
+                var sortedDamagedRoads = roomActions.sortStructuresByHealth(damagedRoads);
+                if(sortedDamagedRoads && sortedDamagedRoads.length) {
+                    if(creep.repair(sortedDamagedRoads[0]) === ERR_NOT_IN_RANGE) {
+                        creep.moveTo(sortedDamagedRoads[0], {visualizePathStyle: {stroke: '#ffffff'}});
                     }
                 } else {
-                    var closestDamagedStructure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                        filter: (structure) => 
+                    var damagedStructures = creep.room.find(FIND_STRUCTURES, {
+                        filter: (structure) =>
                             !structureBlacklistIds.includes(structure.id)
                             && structure.hits < structure.hitsMax
                     });
-                    if(closestDamagedStructure) {
-                        if(creep.repair(closestDamagedStructure) === ERR_NOT_IN_RANGE) {
-                            creep.moveTo(closestDamagedStructure, {visualizePathStyle: {stroke: '#ffffff'}});
+                    var sortedDamagedStructures = roomActions.sortStructuresByHealth(damagedStructures);
+                    if(sortedDamagedStructures && sortedDamagedStructures.length) {
+                        if(creep.repair(sortedDamagedStructures[0]) === ERR_NOT_IN_RANGE) {
+                            creep.moveTo(sortedDamagedStructures[0], {visualizePathStyle: {stroke: '#ffff00'}});
                         }
                     } else {
                         // Nothing to build - drop energy on the ground
