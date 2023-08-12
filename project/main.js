@@ -31,18 +31,18 @@ module.exports.loop = function () {
     const MAX_UPGRADERS = 5;
     const MAX_BUILDERS = 2;
     const MAX_BIG_HARVESTERS = 10;
-    const MAX_CARRIERS = 2;
+    const MAX_CARRIERS = 4;
     const MAX_REPAIRERS = 2;
     const MAX_WALL_REPAIRERS = 1;
 
     // Cosmetic configs - creep count labels
-    const HARVESTER_LABEL_POS = new RoomPosition(41, 29, ROOM_NAME);
-    const UPGRADER_LABEL_POS = new RoomPosition(41, 30, ROOM_NAME);
-    const BUILDER_LABEL_POS = new RoomPosition(41, 31, ROOM_NAME);
-    const BIG_HARVESTER_LABEL_POS = new RoomPosition(41, 32, ROOM_NAME);
-    const CARRIER_LABEL_POS = new RoomPosition(41, 33, ROOM_NAME);
-    const REPAIRER_LABEL_POS = new RoomPosition(41, 34, ROOM_NAME);
-    const WALL_REPAIRER_LABEL_POS = new RoomPosition(41, 35, ROOM_NAME);
+    const HARVESTER_LABEL_POS = new RoomPosition(40, 29, ROOM_NAME);
+    const UPGRADER_LABEL_POS = new RoomPosition(40, 30, ROOM_NAME);
+    const BUILDER_LABEL_POS = new RoomPosition(40, 31, ROOM_NAME);
+    const BIG_HARVESTER_LABEL_POS = new RoomPosition(40, 32, ROOM_NAME);
+    const CARRIER_LABEL_POS = new RoomPosition(40, 33, ROOM_NAME);
+    const REPAIRER_LABEL_POS = new RoomPosition(40, 34, ROOM_NAME);
+    const WALL_REPAIRER_LABEL_POS = new RoomPosition(40, 35, ROOM_NAME);
 
     // Creep body types
     const SMALL_CREEP_BODY = [MOVE, CARRY, WORK];
@@ -120,7 +120,7 @@ module.exports.loop = function () {
     }
     
     var status = `${MY_GAME_SPAWN.name}: ${MY_GAME_SPAWN.room.energyAvailable} / ${MY_GAME_SPAWN.room.energyCapacityAvailable}`;
-    displayText.display(status, new RoomPosition(MY_GAME_SPAWN.pos.x, MY_GAME_SPAWN.pos.y + 1, MY_GAME_SPAWN.room.name), MY_GAME_SPAWN);
+    displayText.label(status, new RoomPosition(MY_GAME_SPAWN.pos.x, MY_GAME_SPAWN.pos.y + 1, MY_GAME_SPAWN.room.name), MY_GAME_SPAWN);
 }
 
 /*
@@ -132,6 +132,7 @@ module.exports.loop = function () {
  *
  *
  * -- TODO --
- * Store configuration in memory so that a config change does not require app change
+ * - Store configuration in memory so that a config change does not require app change
+ * - Figure out what to do with harvesters running out of resources to harvest
  *
  */
