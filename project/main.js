@@ -51,6 +51,7 @@ module.exports.loop = function () {
     const SMALL_CREEP_BODY = [MOVE, CARRY, WORK];
     const HARVESTER_BODY = [MOVE, WORK];
     const BIG_CREEP_BODY = [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE];
+    const CARRIER_BODY = [CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE];
 
     function spawnAnotherCreepIfAble(creepType, creepLimit, labelPos, creepBody) {
         var creepTypePlural = `${creepType}s`;
@@ -84,7 +85,7 @@ module.exports.loop = function () {
     spawnAnotherCreepIfAble("harvester", MAX_HARVESTERS, HARVESTER_LABEL_POS, SMALL_CREEP_BODY);
     spawnAnotherCreepIfAble("upgrader", MAX_UPGRADERS, UPGRADER_LABEL_POS, SMALL_CREEP_BODY);
     spawnAnotherCreepIfAble("builder", MAX_BUILDERS, BUILDER_LABEL_POS, BIG_CREEP_BODY);
-    spawnAnotherCreepIfAble("carrier", MAX_CARRIERS, CARRIER_LABEL_POS, BIG_CREEP_BODY);
+    spawnAnotherCreepIfAble("carrier", MAX_CARRIERS, CARRIER_LABEL_POS, CARRIER_BODY);
     spawnAnotherCreepIfAble("repairer", MAX_REPAIRERS, REPAIRER_LABEL_POS, SMALL_CREEP_BODY);
     spawnAnotherCreepIfAble("wallRepairer", MAX_WALL_REPAIRERS, WALL_REPAIRER_LABEL_POS, BIG_CREEP_BODY);
     spawnAnotherCreepIfAble("big_harvester", MAX_BIG_HARVESTERS, BIG_HARVESTER_LABEL_POS, BIG_CREEP_BODY);
