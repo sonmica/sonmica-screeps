@@ -6,7 +6,7 @@ var roleHarvester = {
     run: function(creep) {
 	    if(creep.store.getFreeCapacity() > 0) {
             if(!actions.harvestEnergy(creep)) {
-                actions.storeEnergy(creep);
+                //actions.storeEnergy(creep);
             };
         }
         else {

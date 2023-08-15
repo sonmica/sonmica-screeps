@@ -27,15 +27,16 @@ module.exports.loop = function () {
     const ROOM_NAME = 'W8N3';    
     const MY_GAME_SPAWN = Game.spawns["Alpha1"];
 
+    // TODO: Store these Configs in Memory and write accessor functions
     // Configurations to tweak as the game progresses
-    const MAX_HARVESTERS = 0;
+    const MAX_HARVESTERS = 2;
     const MAX_UPGRADERS = 5;
     const MAX_BUILDERS = 2;
     const MAX_BIG_HARVESTERS = 8;
     const MAX_CARRIERS = 4;
     const MAX_REPAIRERS = 2;
     const MAX_WALL_REPAIRERS = 2;
-    const MAX_DISMANTLERS = 1;
+    const MAX_DISMANTLERS = 0;
 
     // Cosmetic configs - creep count labels
     const HARVESTER_LABEL_POS = new RoomPosition(40, 29, ROOM_NAME);
@@ -83,12 +84,12 @@ module.exports.loop = function () {
     }
 
     spawnAnotherCreepIfAble("harvester", MAX_HARVESTERS, HARVESTER_LABEL_POS, SMALL_CREEP_BODY);
+    spawnAnotherCreepIfAble("big_harvester", MAX_BIG_HARVESTERS, BIG_HARVESTER_LABEL_POS, BIG_CREEP_BODY);
     spawnAnotherCreepIfAble("upgrader", MAX_UPGRADERS, UPGRADER_LABEL_POS, SMALL_CREEP_BODY);
-    spawnAnotherCreepIfAble("builder", MAX_BUILDERS, BUILDER_LABEL_POS, BIG_CREEP_BODY);
-    spawnAnotherCreepIfAble("carrier", MAX_CARRIERS, CARRIER_LABEL_POS, CARRIER_BODY);
+    spawnAnotherCreepIfAble("builder", MAX_BUILDERS, BUILDER_LABEL_POS, SMALL_CREEP_BODY);
+    spawnAnotherCreepIfAble("carrier", MAX_CARRIERS, CARRIER_LABEL_POS, SMALL_CREEP_BODY);
     spawnAnotherCreepIfAble("repairer", MAX_REPAIRERS, REPAIRER_LABEL_POS, SMALL_CREEP_BODY);
     spawnAnotherCreepIfAble("wallRepairer", MAX_WALL_REPAIRERS, WALL_REPAIRER_LABEL_POS, BIG_CREEP_BODY);
-    spawnAnotherCreepIfAble("big_harvester", MAX_BIG_HARVESTERS, BIG_HARVESTER_LABEL_POS, BIG_CREEP_BODY);
     spawnAnotherCreepIfAble("dismantler", MAX_DISMANTLERS, DISMANTLER_LABEL_POS, BIG_CREEP_BODY);
 
     for(var id in Game.structures) {
@@ -99,14 +100,7 @@ module.exports.loop = function () {
     }
     
     const idsOfStructuresToDismantle = [
-        "86a9cf8231db459",
-        "9e6fcf827290292",
-        "04805bb6629d5e9",
-        "827f5cb09e684b8",
-        "69575b7f4fb52d2",
-        "06425b7974dda05",
-        "d6825b7d8534770",
-        "7fa25c7e60a1248",
+        // ids go here
     ];
     const structuresToDismantle = idsOfStructuresToDismantle.map(id => Game.getObjectById(id)).filter(structure => !!structure);
 
@@ -121,6 +115,7 @@ module.exports.loop = function () {
                     roleDismantler.run(creep, structuresToDismantle[0]);
                 } else {
                     creep.say("DSM idle");
+                    roleBuilder.run(creep);
                 }
                 break;
             case 'builder':
