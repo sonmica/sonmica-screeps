@@ -29,7 +29,7 @@ module.exports.loop = function () {
 
     // TODO: Store these Configs in Memory and write accessor functions
     // Configurations to tweak as the game progresses
-    const MAX_HARVESTERS = 2;
+    const MAX_HARVESTERS = 0;
     const MAX_UPGRADERS = 5;
     const MAX_BUILDERS = 2;
     const MAX_BIG_HARVESTERS = 8;
