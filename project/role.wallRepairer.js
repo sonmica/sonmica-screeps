@@ -65,9 +65,10 @@ var roleWallRepairer = {
             }
 	    }
 	    else {
-            if(!actions.withdrawEnergy(creep)) {
-                actions.harvestEnergy(creep);
-            }
+            actions.withdrawEnergy(creep);
+            // if(!actions.withdrawEnergy(creep)) {
+            //     actions.harvestEnergy(creep);
+            // }
 	    }
 	}
 };

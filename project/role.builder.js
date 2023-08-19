@@ -35,10 +35,11 @@ var roleBuilder = {
             }
 	    }
 	    else {
-            if(!actions.withdrawEnergy(creep)) {
-                creep.say('🔄 harvest');
-                actions.harvestEnergy(creep);
-            }
+            actions.withdrawEnergy(creep);
+            // if(!actions.withdrawEnergy(creep)) {
+            //     creep.say('🔄 harvest');
+            //     actions.harvestEnergy(creep);
+            // }
 	    }
 	}
 };

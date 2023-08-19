@@ -14,9 +14,9 @@ var withdrawEnergy = {
             if(creep.withdraw(closestContainer, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(closestContainer, {visualizePathStyle: {stroke: '#ffaa00'}});
             }
-            return true;
+            //return true;
         }
-        return false;
+        //return false;
     }
 }
 
